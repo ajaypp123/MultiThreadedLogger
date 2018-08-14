@@ -1,6 +1,6 @@
 #include"Logger.h"
 
-Logger::Logger(const char *fileName) 
+Logger::Logger::Logger(const char *fileName) 
 {
   m_logFileName = fileName;
   bool ret = open();
@@ -8,12 +8,12 @@ Logger::Logger(const char *fileName)
     throw LOG_FILE_CREATION_FAILED;
 }
 
-Logger::~Logger()
+Logger::Logger::~Logger()
 {
   m_logStream.close();
 }
 
-bool Logger::open()
+bool Logger::Logger::open()
 {
   m_logStream.open(m_logFileName, std::ofstream::out|std::ofstream::trunc);
   if (m_logStream.is_open())
@@ -22,7 +22,7 @@ bool Logger::open()
     return false;
 }
 
-void Logger::getCurrentTime(char *buf)
+void Logger::Logger::getCurrentTime(char *buf)
 {
   time_t     now;
   struct tm  *tstruct;
@@ -34,12 +34,12 @@ void Logger::getCurrentTime(char *buf)
   strftime(buf, 80 , "[ %X ]:[ %d-%m-%Y ]", tstruct);
 }
 
-void Logger::close()
+void Logger::Logger::close()
 {
   m_logStream.close();
 }
 
-void Logger::write(enum logType flag, const char* message)
+void Logger::Logger::write(enum logType flag, const char* message)
 {
   std::string logFlag;
   char buf [80];
@@ -63,7 +63,7 @@ void Logger::write(enum logType flag, const char* message)
     //sleep in microseconds.
     usleep(1000);
   }
-  Logger::getCurrentTime(buf);
+  Logger::Logger::getCurrentTime(buf);
   std::string dateString(buf);
   m_logStream << logFlag.c_str()  << dateString.c_str() << ":[ " << message << " ]" << std::endl;
   m_logStream.flush();
