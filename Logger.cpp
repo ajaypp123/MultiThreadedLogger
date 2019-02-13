@@ -31,7 +31,7 @@ void Logger::Logger::getCurrentTime(char *buf)
   tstruct = localtime(&now);
   // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
   // for more information about date/time format
-  strftime(buf, 80 , "[ %X ]:[ %d-%m-%Y ]", tstruct);
+  strftime(buf, 80 , "[ %X ]-[ %d-%m-%Y ]", tstruct);
 }
 
 void Logger::Logger::close()
